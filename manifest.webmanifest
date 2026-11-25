@@ -1,0 +1,17 @@
+{
+  "name": "비판자와 거리두기 4주",
+  "short_name": "거리두기",
+  "description": "머릿속 비판자의 목소리와 거리를 두는 4주 기록 훈련",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d5c55",
+  "theme_color": "#0d5c55",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

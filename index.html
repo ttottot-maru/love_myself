@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d5c55">
+<meta name="description" content="머릿속 비판자의 목소리와 거리를 두는 4주 기록 훈련">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="거리두기">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>비판자와 거리두기 4주</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday, tender and calm: a private notebook, never a scoreboard
+   IDEA a two-voice transcript: the critic's words are typeset as a quoted, separate voice; mine are plain text
+   PICTURE a 4-week calendar strip, each day showing how true the critic felt before vs after; review days marked as their own tiles
+   COLOUR deep teal ground band, white page, warm sun yellow for kind moments, muted clay for the critic's quotes
+   TYPE IBM Plex Sans KR for my voice and UI, Gowun Batang for the critic's quoted words
+   LAYOUT teal band with title and 4x7 strip; then the day's page (six exercises + kind-moment column, or a review page); then overall patterns; then design notes. Phone: stacked */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1716);--ink:light-dark(#16201f,#e6efed);--mute:light-dark(#56635f,#9fb0ab);--line:light-dark(#d9e2df,#2a3836);--teal:light-dark(#0d5c55,#0b3f3a);--teal2:light-dark(#0f6e66,#5fc7b9);--tealbg:light-dark(#e7f3f1,#14302c);--sun:light-dark(#f2b934,#e8b23a);--sunbg:light-dark(#fff6dc,#2b2410);--sunink:light-dark(#6b4a00,#f3d27a);--clay:light-dark(#8a3d2b,#e79a85);--claybg:light-dark(#fbefeb,#2a1a16);--panel:light-dark(#f6f8f7,#16211f)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans KR",system-ui,sans-serif;overflow-x:clip}
+.band{padding-block:clamp(24px,4vw,52px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wrap{max-width:1180px;margin:0 auto}
+.top{background:var(--teal);color:#f2fbf9;padding-top:max(clamp(24px,4vw,52px),calc(env(safe-area-inset-top,0px) + 16px))}
+body{padding-bottom:env(safe-area-inset-bottom,0px)}
+.band{padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
+h1{font-size:clamp(30px,4.6vw,46px);line-height:1.1;letter-spacing:-.02em;margin:0 0 10px;font-weight:600;text-wrap:balance}
+h2{font-size:24px;line-height:1.25;margin:0 0 14px;font-weight:600;letter-spacing:-.01em}
+h3{font-size:18px;margin:0 0 8px;font-weight:600}
+.lede{margin:0 0 22px;max-width:64ch;color:#cfe9e4}
+.weeks{display:grid;gap:8px}
+.wk{display:grid;grid-template-columns:3em repeat(7,minmax(0,1fr));gap:6px;align-items:stretch}
+.wk>span{font-size:13px;color:#cfe9e4;align-self:center}
+.cell{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:6px 6px 5px;color:inherit;font:inherit;text-align:left;cursor:pointer;min-height:74px;display:flex;flex-direction:column;gap:3px}
+.cell:hover{background:rgba(255,255,255,.14)}
+.cell:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+.cell.rv{background:rgba(242,185,52,.16);border-color:rgba(242,185,52,.5);justify-content:space-between}
+.cell.on{background:#f2fbf9;color:#0d3f3a;border-color:#f2fbf9}
+.cell .n{font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:4px}
+.cell .r{font-size:13px;font-weight:500}
+.meter{position:relative;flex:1;min-height:34px;border-left:1px solid currentColor;margin-left:3px;opacity:.9}
+.meter i{position:absolute;bottom:0;width:9px;border-radius:0 2px 2px 0}
+.meter .b0{left:0;border:1.5px solid currentColor;border-left:0}
+.meter .b1{left:10px;background:var(--sun)}
+.sun{width:10px;height:10px;border-radius:50%;background:var(--sun);display:inline-block;flex:none}
+.sun.off{background:transparent;border:1.5px dashed currentColor;opacity:.45}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:14px;font-size:13px;color:#cfe9e4}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.key0{width:11px;height:11px;border:1.5px solid currentColor;display:inline-block}
+.key1{width:11px;height:11px;background:var(--sun);display:inline-block}
+.keyr{width:11px;height:11px;background:rgba(242,185,52,.35);border:1px solid rgba(242,185,52,.7);display:inline-block}
+.dhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin-bottom:16px}
+.dhead p{margin:0;color:var(--mute);max-width:70ch}
+.day{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:32px;align-items:start}
+.ex{border-top:1px solid var(--line);padding:22px 0 6px}
+.ex:first-child{border-top:0;padding-top:0}
+.ex h3 span{color:var(--teal2);margin-right:6px}
+.exp{margin:0 0 4px;display:grid;gap:6px;background:var(--tealbg);border-radius:10px;padding:12px 16px}
+.exp div{display:grid;grid-template-columns:3em minmax(0,1fr);gap:10px;font-size:15px;line-height:1.55}
+.exp dt{font-weight:600;color:var(--teal2)}
+.exp dd{margin:0}
+.egs{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.egs li{background:var(--bg);border-radius:8px;padding:10px 12px;display:grid;gap:2px;font-size:14px}
+.egs .eq{font-family:"Gowun Batang",serif;color:var(--clay);font-size:15px}
+.egs b{font-weight:600;color:var(--teal2);margin-right:4px;font-family:"IBM Plex Sans KR",sans-serif;font-size:14px}
+label{display:block;font-size:14px;font-weight:500;margin:14px 0 6px}
+label small{font-weight:400;color:var(--mute)}
+textarea,input[type=text]{width:100%;font-size:16px;line-height:1.55;font-family:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;resize:vertical}
+textarea{min-height:70px}
+textarea:focus,input:focus{outline:2px solid var(--teal2);outline-offset:1px;border-color:transparent}
+textarea.critic{font-family:"Gowun Batang",serif;font-size:17px;color:var(--clay);background:var(--claybg);border-color:transparent}
+.rng{display:grid;grid-template-columns:minmax(0,1fr) 3.2em;gap:12px;align-items:center}
+.rng output{font-weight:600;text-align:right;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--teal2);height:28px}
+.qline[hidden]{display:none}
+.qline{display:flex;gap:8px;align-items:flex-start;margin:0 0 10px;background:var(--claybg);border-radius:8px;padding:8px 12px}
+.qline span{flex:1;font-family:"Gowun Batang",serif;font-size:15px;color:var(--clay);line-height:1.5}
+.qline b{flex:none;font-size:13px;font-weight:600;color:var(--clay);padding-top:2px}
+.float{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(760px,calc(100% - 24px));z-index:20;display:none;align-items:flex-start;gap:10px;background:var(--claybg);border:1px solid color-mix(in srgb,var(--clay) 45%,transparent);border-radius:12px;padding:10px 8px 10px 14px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.float.show{display:flex}
+.float div{flex:1}
+.float b{display:block;font-size:13px;font-weight:600;color:var(--clay)}
+.float span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-family:"Gowun Batang",serif;font-size:16px;color:var(--clay);line-height:1.5}
+.xbtn{flex:none;width:44px;height:44px;border:0;background:transparent;color:var(--clay);font-size:22px;line-height:1;cursor:pointer;border-radius:8px}
+.xbtn:hover{background:color-mix(in srgb,var(--clay) 12%,transparent)}
+.xbtn:focus-visible,.qback:focus-visible{outline:2px solid var(--clay);outline-offset:2px}
+.qback{font:inherit;font-size:13px;color:var(--clay);background:transparent;border:1px dashed color-mix(in srgb,var(--clay) 50%,transparent);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer;margin:0 0 10px}
+.qhide .qline,.qhide .float{display:none!important}
+.qback{display:none}.qhide .qback{display:inline-block}
+.short{font-size:14px;color:var(--mute);margin:0 0 18px;border-left:2px solid var(--line);border-radius:0;padding-left:12px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 16px}
+.kind{background:var(--sunbg);border-radius:14px;padding:20px 20px 22px}
+.kind h3{color:var(--sunink)}
+.kind .sub{margin:0;color:var(--sunink);font-size:14px}
+@media(min-width:901px){.kind{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--sun);border-color:var(--sun);color:#3a2800}
+.chip:focus-visible,.btn:focus-visible{outline:2px solid var(--teal2);outline-offset:2px}
+.none{display:flex;gap:10px;align-items:center;margin-top:16px;font-size:15px}
+.none input{width:20px;height:20px;accent-color:var(--sunink)}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
+.btn{font:inherit;font-size:15px;border-radius:8px;padding:10px 16px;min-height:44px;cursor:pointer;border:1px solid var(--teal2);background:var(--teal2);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--teal2)}
+.btn:disabled{opacity:.4;cursor:default}
+.savebox{margin-top:28px;border-top:1px solid var(--line);padding-top:20px}
+.saverow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.share{margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.share summary{cursor:pointer;font-weight:600;min-height:32px;display:flex;align-items:center}
+.allrow{display:flex;gap:10px;align-items:center;font-weight:600;margin:0 0 8px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.shlist{display:grid;gap:2px;margin-bottom:14px}
+.shlist label{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px;margin:0;padding:6px 0;cursor:pointer}
+.shlist label small{display:block;color:var(--mute);font-size:13px}
+.shlist label span{flex:1}
+.share input[type=checkbox]{width:20px;height:20px;flex:none;accent-color:var(--teal2);margin-top:2px}
+.card{background:var(--tealbg);border-radius:12px;padding:16px 18px;display:grid;gap:10px}
+.card h4{margin:0;font-size:16px;font-weight:600;color:var(--teal2)}
+.card .ci b{display:block;font-size:13px;font-weight:600;color:var(--mute)}
+.card .ci p{margin:0;white-space:pre-wrap;font-size:15px}
+.card .ci.cq p{font-family:"Gowun Batang",serif;color:var(--clay)}
+.card .empty{font-size:14px}
+.backup{margin-top:28px;border-top:1px solid var(--line);padding-top:20px}
+.bkc{margin-top:12px;border:1px solid var(--clay);border-radius:10px;padding:12px 14px;font-size:15px}
+.bkc[hidden]{display:none}
+.status{font-size:13px;color:var(--mute)}
+.alt{background:var(--panel)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5em,1fr));gap:14px;margin-bottom:24px}
+.stat{border-top:2px solid var(--teal2);padding-top:8px}
+.stat b{display:block;font-size:clamp(24px,3.2vw,32px);line-height:1.1;font-weight:600;white-space:nowrap}
+.stat span{font-size:14px;color:var(--mute)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+.quotes{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.quotes li{font-family:"Gowun Batang",serif;color:var(--clay);background:var(--claybg);border-radius:8px;padding:10px 14px}
+.quotes li em{font-family:"IBM Plex Sans KR",sans-serif;font-style:normal;font-size:13px;color:var(--mute);display:block;margin-top:2px}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:9.5em minmax(0,1fr) 2em;gap:10px;align-items:center;font-size:14px}
+.bar div{height:12px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar div i{display:block;height:100%;background:var(--sun)}
+.bar b{text-align:right;font-weight:600}
+.empty{color:var(--mute);font-size:15px;margin:0}
+.rvbox{background:var(--panel);border-radius:14px;padding:20px}
+.rvsec{border-top:1px solid var(--line);padding-top:20px;margin-top:24px}
+.kid{background:var(--sunbg);border-radius:12px;padding:14px 16px;margin:4px 0 6px;font-size:15px;line-height:1.7}
+.kid p{margin:0 0 10px}
+.kid p:last-child{margin:0}
+.kid b{color:var(--sunink);font-weight:600}
+.kidex{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:6px}
+.kidex li{display:flex;flex-wrap:wrap;gap:4px 10px;background:var(--bg);border-radius:8px;padding:8px 12px}
+.kidex li span:first-child{font-family:"Gowun Batang",serif;color:var(--clay)}
+.namebox{background:var(--claybg);border-radius:14px;padding:20px;margin-top:24px}
+.namebox h3{color:var(--clay)}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px 28px}
+.note{border-top:1px solid var(--line);padding-top:12px}
+.note p{margin:0;font-size:15px}
+.care{margin-top:28px;border:1px solid var(--clay);border-radius:12px;padding:16px 18px;font-size:15px}
+.care p{margin:0}
+@media(max-width:900px){.day,.cols{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:720px){.pair{grid-template-columns:minmax(0,1fr)}.exp div{grid-template-columns:minmax(0,1fr);gap:0}}
+@media(max-width:520px){.wk{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.wk>span{grid-column:1/-1;margin-top:4px}.cell{min-height:58px;padding:4px}.cell .r{font-size:12px}.meter i{width:6px}.meter .b1{left:7px}.bar{grid-template-columns:7.5em minmax(0,1fr) 2em}}
+@media(prefers-reduced-motion:no-preference){.meter i{transition:height .4s ease}}
+</style>
+</head>
+<body>
+<header class="band top">
+<div class="wrap">
+<h1>비판자와 거리두기 4주</h1>
+<p class="lede">머릿속의 가혹한 목소리를 없애려는 게 아니라, 그 목소리가 '나'가 아니라 '나에게 들리는 말'이라는 걸 알아차리는 훈련입니다. 하루에 다섯 단계를 한 번에, 7일마다 리뷰합니다. 빠진 날은 그냥 건너뛰어도 됩니다.</p>
+<div class="weeks" id="strip"></div>
+<div class="legend"><span><i class="key0"></i>연습 전, 그 말이 사실처럼 느껴진 정도</span><span><i class="key1"></i>연습 후</span><span><i class="sun"></i>괜찮았던 순간을 기록한 날</span><span><i class="keyr"></i>리뷰하는 날</span></div>
+</div>
+</header>
+
+<main>
+<section class="band"><div class="wrap" id="daywrap">
+<div class="dhead"><h2 id="dtitle">1일차</h2><p id="dgoal"></p></div>
+<div id="dbody"></div>
+<div class="savebox">
+<div class="saverow"><button class="btn" id="saveBtn" type="button">오늘 기록 저장</button><span class="status" id="saveMsg" aria-live="polite"></span></div>
+<details class="share" id="shareBox"><summary>공유 카드 만들기</summary>
+<p class="status" style="margin:8px 0 12px">공유할 항목만 고르세요. 기본값은 아무것도 선택하지 않은 상태입니다.</p>
+<label class="allrow"><input type="checkbox" id="shAll"> 전체 선택</label>
+<div class="shlist" id="shList"></div>
+<div class="card" id="shCard" aria-live="polite"></div>
+<div class="btns" style="margin-top:12px"><button class="btn" id="shCopy" type="button">공유 카드 복사</button><button class="btn ghost" id="shSend" type="button" hidden>다른 앱으로 보내기</button><span class="status" id="shMsg" aria-live="polite"></span></div>
+</details>
+</div>
+<div class="btns">
+<button class="btn ghost" id="prev" type="button">이전 날</button>
+<button class="btn" id="next" type="button">다음 날로</button>
+<span class="status" id="save" aria-live="polite">입력하면 이 휴대폰에 자동으로 저장됩니다</span>
+</div>
+</div></section>
+
+<section class="band alt" id="pat"><div class="wrap">
+<h2>4주 전체 패턴</h2>
+<div class="stats" id="stats"></div>
+<div class="cols">
+<div><h3>비판자가 한 말들</h3><ul class="quotes" id="quotes"></ul></div>
+<div><h3>괜찮았던 순간의 종류</h3><div class="bars" id="kbars"></div>
+<h3 style="margin-top:24px">가혹하지 않았을 때의 대가</h3><div class="bars" id="cbars"></div></div>
+</div>
+<div class="btns"><button class="btn ghost" id="copy" type="button">전체 기록 텍스트로 복사</button><span class="status" id="copied" aria-live="polite"></span></div>
+<div class="backup">
+<h3>백업과 복원</h3>
+<p class="status" style="margin:0 0 10px">기록은 이 휴대폰에만 있습니다. 앱을 지우거나 브라우저 데이터를 지우면 함께 사라지니, 일주일에 한 번 백업 파일을 받아두세요. 기기를 바꿀 때도 이 파일로 옮깁니다.</p>
+<div class="btns" style="margin-top:0"><button class="btn" id="bkSave" type="button">백업 파일 저장</button><button class="btn ghost" id="bkCopy" type="button">백업을 글로 복사</button>
+<label class="btn ghost" for="bkFile" style="margin:0;font-weight:400;display:inline-flex;align-items:center">백업 불러오기</label><input type="file" id="bkFile" accept="application/json,.json,.txt" style="position:absolute;width:1px;height:1px;opacity:0"></div>
+<details style="margin-top:10px"><summary class="status" style="cursor:pointer">백업 글을 붙여넣어 복원하기</summary><textarea id="bkPaste" placeholder="백업을 글로 복사한 내용을 여기에 붙여넣으세요" style="margin-top:8px"></textarea><button class="btn ghost" id="bkPasteGo" type="button" style="margin-top:8px">붙여넣은 내용 확인</button></details>
+<div id="bkConfirm" class="bkc" hidden><p id="bkInfo" style="margin:0 0 10px"></p><div class="btns" style="margin-top:0"><button class="btn" id="bkYes" type="button">지금 기록을 덮어쓰고 복원</button><button class="btn ghost" id="bkNo" type="button">취소</button></div></div>
+<p class="status" id="bkMsg" aria-live="polite" style="margin:8px 0 0"></p>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<h2>이렇게 구성한 이유</h2>
+<div class="notes">
+<div class="note"><h3>다섯 단계를 이 순서로 묶은 이유</h3><p>붙잡기(받아 적기) → 출처 보기(말투의 주인) → 걸러내기(사실과 판결) → 다른 기준 세우기(친구 테스트) → 넓은 시선에서 새 문장으로 합치기(답장 쓰기). 앞 단계가 다음 단계의 재료가 되어서, 마지막 답장은 그날 본 것을 한 문장으로 정리하는 셈이 됩니다.</p></div>
+<div class="note"><h3>점수를 두 번 매기는 이유</h3><p>"이 말이 사실인가"가 아니라 "얼마나 사실처럼 느껴지나"를 묻습니다. 내용과 싸우지 않고, 그 말이 나를 붙잡는 힘이 변하는지만 관찰하기 위해서입니다.</p></div>
+<div class="note"><h3>괜찮았던 순간을 '예측과 실제'로 적는 이유</h3><p>좋은 일만 적으면 비판자는 "운이었어"로 지워버립니다. 비판자의 예측과 실제 결과를 나란히 적으면 그 차이가 지우기 어려운 증거가 됩니다. 인지행동치료의 행동 실험과 같은 구조입니다.</p></div>
+<div class="note"><h3>'대가가 있었다'를 선택지로 둔 이유</h3><p>늘 좋았다고만 적게 하면 이 기록은 설득이 되고 신뢰를 잃습니다. 대가가 있던 날도 세어야 비판자의 "느슨해지면 무너진다"는 주장을 공정하게 검증할 수 있습니다.</p></div>
+<div class="note"><h3>7일마다 리뷰하는 이유</h3><p>하루치 기록은 그날의 감정에 묻히지만, 일주일을 모아 보면 상황, 시간, 사람의 반복이 보입니다. 다음 주에 집중할 것 하나를 정하는 근거도 여기서 나옵니다.</p></div>
+<div class="note"><h3>막으려던 것을 7일마다 묻는 이유</h3><p>비판자가 무엇을 지키려는지는 하루치 기록보다 일주일을 모아 볼 때 더 잘 보입니다. 매일 묻기엔 어려운 질문이라 리뷰로 옮기고, 찾은 답을 다음 주 답장의 첫 문장으로 쓰게 했습니다.</p></div>
+<div class="note"><h3>이름 붙이기를 28일차에 두는 이유</h3><p>처음에 붙이는 이름은 추측이거나 조롱이 되기 쉽습니다. 4주 동안 이 목소리의 말투와 출처, 반복되는 패턴을 본 뒤에 붙이는 이름은 관찰에서 나온 이름이라 오래 갑니다.</p></div>
+</div>
+<h2 style="margin-top:36px">이 훈련의 맹점</h2>
+<div class="notes">
+<div class="note"><h3>하루 다섯 단계는 무겁다</h3><p>제대로 하면 15분에서 20분이 걸립니다. 지치는 순간 이 훈련은 또 하나의 의무가 됩니다. 시간이 없는 날은 1번 받아 적기와 5번 답장 쓰기만 해도 충분합니다.</p></div>
+<div class="note"><h3>기록이 반추가 될 수 있다</h3><p>쓰다 보면 같은 장면을 계속 되감게 되는 날이 있습니다. 쓸수록 더 무거워지면 그날은 멈추는 게 맞습니다.</p></div>
+<div class="note"><h3>비판자가 이 훈련도 채점한다</h3><p>"점수가 왜 안 내려가지", "이것도 제대로 못 하네"가 들린다면 그 문장을 그날의 받아 적기로 쓰면 됩니다.</p></div>
+<div class="note"><h3>거리두기가 회피가 될 수 있다</h3><p>모든 자기비판이 틀린 건 아닙니다. 행동에 대한 정당한 피드백까지 밀어내면 배울 기회를 놓칩니다. 3번 사실과 판결이 이 균형을 위한 단계입니다.</p></div>
+</div>
+<div class="care"><p>비판자의 말이 "사라져야 한다", "벌받아야 한다"처럼 나를 해치는 쪽으로 간다면, 혼자 하는 이 훈련보다 상담 전문가와 함께 보는 것이 더 안전하고 효과적입니다. 그건 실패가 아니라 더 맞는 도구를 고르는 일입니다.</p></div>
+<p class="status" style="margin-top:20px">기록은 이 휴대폰 안에만 저장되고, 어디로도 전송되지 않습니다. 다른 기기와 자동으로 이어지지 않으니, 위의 백업을 가끔 받아두세요.</p>
+</div></section>
+</main>
+<div class="float" id="float" role="region" aria-label="1번에서 적은 비판자의 말"><div><b>1번에서 적은 비판자의 말</b><span id="fq"></span></div><button type="button" class="xbtn" id="fx" aria-label="비판자의 말 숨기기">&times;</button></div>
+
+<script>
+{
+const N=28;
+const SEC=[
+{t:"받아 적기",i:"비판자의 말을 해석하지도 반박하지도 않고, 들린 문장을 녹취하듯 그대로 옮깁니다.",p:"머릿속의 '판단'을 종이 위의 '문장'으로 바꿔, 나와 그 말 사이에 첫 번째 틈을 만듭니다.",h:"감정이나 생각에 말로 이름을 붙이면 그 강도가 내려간다는 정서 명명 연구가 있습니다. 수용전념치료(ACT)의 탈융합도 같은 원리로, 생각을 사실이 아니라 '떠오른 생각'으로 보게 합니다.",f:[["sit","어떤 상황이었나요? <small>사실만, 짧게</small>","회의에서 질문에 바로 답하지 못했다"],["critic","비판자가 한 말, 토씨 그대로","넌 왜 항상 준비가 안 돼 있어. 다들 한심하게 봤을 거야.","critic"],["body","그 말이 들렸을 때 몸에서는 어떤 느낌이 있었나요?","가슴이 조이고 얼굴이 뜨거워졌다"]],b:"b0"},
+{t:"말투의 주인",i:"이 말투가 누구의 목소리, 어떤 분위기를 닮았는지 찾아봅니다.",p:"이 목소리가 처음부터 내 것은 아니었을 수 있다는 걸 확인합니다. 누군가를 탓하려는 게 아닙니다.",h:"내면의 비판은 대개 한때 바깥에서 들은 말이 내면화된 것입니다. 출처가 보이면 그 말은 '나에 대한 진실'에서 '어디선가 배운 말'로 자리를 옮깁니다.",f:[["owner","이 말투, 누구를 닮았나요? <small>사람, 집단, 분위기 모두 가능</small>","시험 성적표를 보던 아버지의 말투"],["when","언제쯤 처음 들었던 것 같나요? <small>모르면 비워도 됩니다</small>","중학생 무렵"]]},
+{t:"사실과 판결",i:"카메라가 찍을 수 있는 사실과 비판자가 내린 판결을 나눕니다. 그리고 판결이 행동에 대한 것인지, 나라는 존재에 대한 것인지 구분합니다.",p:"쓸모 있는 피드백은 남기고, 존재에 대한 공격만 걸러냅니다.",h:"행동에 대한 말(죄책감)은 고칠 수 있지만, 존재에 대한 말(수치심)은 고칠 대상이 없어 무력감만 남깁니다. 이 단계는 거리두기가 정당한 피드백까지 밀어내는 회피로 흐르지 않게 하는 안전장치이기도 합니다.",f:[["fact","일어난 일 <small>카메라가 찍을 수 있는 것만</small>","질문을 받고 5초 정도 답하지 못했다. 이후 자료를 찾아 답했다"],["verdict","비판자의 판결","넌 무능하다"],["useful","행동에 대한 말인가요, 존재에 대한 말인가요? 행동이라면 쓸모 있는 부분은?","존재에 대한 말. 쓸모 있는 부분: 다음엔 예상 질문을 하나 더 준비"]]},
+{t:"친구 테스트",i:"같은 일을 겪은 친한 친구에게 할 말을 적고, 그 말을 나에게 하기 어려운 이유를 봅니다.",p:"나에게만 적용하는 이중 기준을 드러냅니다.",h:"대부분은 남에게는 너그러울 줄 압니다. 그 능력이 이미 있다는 게 확인되고, 나에게 하기 어려운 이유(봐주는 것 같아서, 그럴 자격이 없어서)가 비판자의 핵심 신념을 가리키는 단서가 됩니다.",f:[["friend","같은 일을 겪은 친구에게 뭐라고 하겠어요?","갑자기 질문받으면 누구나 그래. 결국 답했잖아"],["hard","그 말을 나에게 하기 어렵다면, 무엇이 걸리나요?","나한테 그러면 봐주는 것 같아서"]]},
+{t:"답장 쓰기",i:"먼저 모든 사정을 알고 나를 너그럽게 보는 '신의 눈'으로 오늘의 나를 바라봅니다. 그다음 그 시선에서 비판자에게 짧은 답장을 씁니다. 의도는 인정하되, 이번엔 어떻게 할지는 내가 정합니다.",p:"1번부터 4번까지 본 것을 더 넓은 시선 위에서 하나의 새 문장으로 합칩니다.",h:"비판자는 한 장면만 크게 확대해서 봅니다. 나의 과거와 사정, 애쓴 것까지 다 아는 시선으로 물러서면 같은 장면이 다르게 보입니다. 자비중심치료의 '자비로운 시선', 수용전념치료의 '관찰하는 자기'와 같은 원리입니다. 그 시선에서 쓰는 답장은 비판자와 싸우지 않으면서 선택을 내 쪽으로 가져옵니다. 종교가 없다면 '모든 걸 아는 너그러운 존재'로 바꿔 생각해도 됩니다.",f:[["godeye","신의 눈으로 오늘의 나를 본다면, 무엇이 보이나요? <small>판단하지 않고, 사정을 다 아는 시선으로</small>","긴장한 채로도 끝까지 답하려고 애쓴 사람이 보인다. 5초 멈춘 건 그 하루의 아주 작은 조각이다"],["reply","그 시선에서 비판자에게 보내는 짧은 답장 <small>\"지켜주려는 거 알아\"로 시작해 보세요</small>","지켜주려는 거 알아. 그래도 5초 멈춘 걸로 나를 판단하진 않을게. 다음 회의는 예상 질문 하나만 더 준비하고 넘어갈게."]],b:"b1"}
+];
+const EX=[
+{lead:"요약하거나 다듬으면 비판자의 말투가 사라집니다. 말투가 남아야 2번에서 그 주인을 찾을 수 있습니다.",cols:["요약해서 적으면","토씨 그대로 적으면"],q:1,rows:[["자책했다","넌 진짜 구제불능이야. 이러니까 아무도 안 믿지."],["실수가 신경 쓰였다","또 시작이네. 그럴 줄 알았어."]]},
+{lead:"꼭 한 사람이 아니어도 됩니다. 집단, 문화, 분위기도 출처가 됩니다.",cols:["비판자의 말","닮은 목소리"],q:0,rows:[["그것밖에 못 해?","성적표를 보던 부모님의 한숨 섞인 말투"],["튀지 마, 찍혀","위계가 강했던 학교나 동아리 분위기"],["남들 보기 창피하게","체면을 중요하게 여기던 집안 어른들"]]},
+{lead:"모든 비판이 걸러낼 대상은 아닙니다. 두 번째처럼 행동에 대한 말은 남겨둡니다.",cols:["일어난 일","판결","구분"],q:1,rows:[["보고서에 오타가 두 개 있었다","넌 꼼꼼하지 못한 사람이야","존재에 대한 말이라 걸러낸다. 쓸모 있는 부분은 '제출 전 한 번 더 읽기'"],["약속에 20분 늦었다","출발 시간을 다시 잡아야 해","행동에 대한 말이라 쓸모 있는 피드백으로 남긴다"]]},
+{lead:"같은 상황인데 두 문장이 얼마나 다른지가 이 단계의 핵심 정보입니다.",cols:["나에게 하는 말","친구에게 할 말"],q:0,rows:[["이것도 못 하다니 한심해","처음 하는 일이면 헤매는 게 당연하지"],["쉬면 뒤처져","지금 쉬어야 다음에 버티지"]]},
+{lead:"비판자는 한 장면만 확대하고, 신의 눈은 그 장면을 하루 전체와 그동안의 사정 위에 놓고 봅니다. 답장은 그 넓은 시선에서 씁니다.",cols:["비판자의 시선","신의 눈","답장"],q:0,rows:[["5초 멈췄어. 넌 무능해","전날 밤늦게까지 준비했고, 긴장 속에서도 끝까지 답한 사람","망신당하지 않게 하려는 거 알아. 그래도 그 5초로 나를 판단하진 않을게. 다음엔 예상 질문 하나만 더 준비할게."],["쉬면 뒤처져","몇 주째 쉬지 못하고 지쳐 있는 사람","무너질까 봐 걱정하는 거 알아. 오늘은 30분만 쉬고 다시 볼게."]]}
+];
+EX.forEach((e,n)=>{SEC[n].e=e});
+const RV=[
+["pat","패턴 찾기",[["rSit","비판자가 자주 등장한 상황, 시간, 사람","평가받는 자리, 피곤한 밤"],["rLine","가장 많이 반복된 문장이나 주제","준비가 안 됐다, 다들 실망했다"],["rKind","괜찮았던 순간에서 보인 공통점","누군가 먼저 친절했을 때 넘어가기 쉬웠다"]]],
+["guard","비판자가 막으려던 것",[["gLine","이번 주 비판자가 가장 크게 짖은 말 하나","넌 왜 항상 준비가 안 돼 있어","critic"],["gWhat","그 말은 무엇이 무서워서 짖은 걸까요? <small>막으려던 것</small>","사람들 앞에서 창피당하는 것"],["gFear","비판자가 조용해지면 무슨 일이 생길까 봐 걱정되나요?","대충 하다가 진짜 큰 실수를 할 것 같다"],["gSafe","소리 지르지 않고도 그것을 지킬 다른 방법이 있을까요?","회의 전날 예상 질문 세 개만 적어두기"]],`<div class="kid"><p>머릿속 비판자는 <b>겁 많은 경비견</b>과 비슷해요. 경비견은 우리 집을 지키려고 짖어요. 그런데 겁이 너무 많아서 도둑이 아니라 택배 아저씨에게도, 바람에 흔들리는 나뭇잎에도 크게 짖어요.</p><p>짖는 소리는 무섭고 시끄럽지만, 경비견이 원하는 건 딱 하나, <b>나를 지키는 것</b>이에요. 비판자도 똑같아요. "넌 왜 이것밖에 못 해!" 하고 큰 소리를 내는 건, 내가 창피를 당하거나, 미움받거나, 혼날까 봐 미리 겁이 나서예요.</p><ul class="kidex"><li><span>"넌 준비가 안 됐어!"</span><span>→ 창피당할까 봐</span></li><li><span>"쉬면 안 돼!"</span><span>→ 뒤처질까 봐</span></li><li><span>"괜히 기대하지 마!"</span><span>→ 실망해서 속상할까 봐</span></li><li><span>"다 네 잘못이야!"</span><span>→ 좋아하는 사람과 멀어질까 봐</span></li></ul><p>그래서 이번 주 기록을 읽으면서 "비판자는 무엇이 무서워서 짖었을까?"를 찾아봐요. 무엇을 지키려는지 알면, 비판자를 꾸짖는 대신 "괜찮아, 그건 내가 다른 방법으로 지킬게"라고 말해줄 수 있어요. 여기서 찾은 답은 다음 주 5번 답장 쓰기의 첫 문장("~하려는 거 알아")에 써보세요.</p></div>`],
+["look","돌아보기",[["rChg","이번 주에 달라진 것","비판자 목소리를 알아차리는 속도가 빨라졌다"],["rSame","달라지지 않은 것","평가받는 자리에서는 여전히 거의 사실처럼 느껴진다"],["rNext","다음 주에 집중할 것 하나","3번 사실과 판결을 더 꼼꼼히"]]]
+];
+const NAME=[["nName","비판자의 이름","검사관"],["nWhy","왜 이 이름인가요? 4주 동안 본 말투, 출처, 반복된 패턴에서 찾아보세요","항상 결함부터 찾고, 통과시켜 주지 않는다. 그래도 나를 망신에서 지키려는 일은 한다"],["nUse","앞으로 그 목소리가 들리면 이렇게 부르겠습니다 <small>\"나는 ~다\" 대신</small>","검사관이 또 '넌 준비가 안 됐다'고 말하고 있네"],["nKeep","4주 뒤에도 계속 가져갈 연습 하나","답장 쓰기"]];
+const KC=["실수했지만 넘어감","쉬었는데 괜찮았음","친절을 받아들임","나에게 다정하게 말함","남에게 너그러웠음","기타"];
+const CC=["없었음","조금 있었음","분명히 있었음"];
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const isRv=i=>(i+1)%7===0;
+const wkOf=i=>Math.floor(i/7);
+let data=Array.from({length:N},()=>({}));
+let cur=0,db=null,uid=null,timer=null,dirty=new Set(),writing=false;
+const $=id=>document.getElementById(id);
+const LS="voice28";
+try{const s=JSON.parse(localStorage.getItem(LS)||"null");if(s&&Array.isArray(s.data))s.data.forEach((x,i)=>{if(i<N&&x)data[i]=x});if(s&&Number.isInteger(s.cur)&&s.cur<N)cur=s.cur}catch(e){}
+const filled=d=>!!(d&&(d.critic||d.sit));
+const hasKind=d=>!!(d&&(d.kWhat||(d.kCats&&d.kCats.length)));
+const avgDrop=list=>{const a=list.filter(filled).map(x=>(x.b0??5)-(x.b1??5));return a.length?a.reduce((p,q)=>p+q,0)/a.length:null};
+const fmtDrop=v=>v==null?"–":(v>0?"−":v<0?"+":"")+Math.abs(v).toFixed(1);
+function strip(){
+let h="";for(let w=0;w<4;w++){h+=`<div class="wk" role="list" aria-label="${w+1}주"><span>${w+1}주</span>`;
+for(let k=0;k<7;k++){const i=w*7+k,x=data[i]||{},on=i===cur?" on":"";
+if(isRv(i)){const done=!!(x.rChg||x.rSit||x.rNext||x.nName);h+=`<button class="cell rv${on}" role="listitem" data-i="${i}" aria-label="${i+1}일차 리뷰"><span class="n">${i+1}${done?' <span class="sun"></span>':""}</span><span class="r">${i===N-1?"마지막 리뷰":"리뷰"}</span></button>`;continue}
+const f=filled(x),b0=f?(x.b0??5):0,b1=f?(x.b1??5):0;
+h+=`<button class="cell${on}" role="listitem" data-i="${i}" aria-label="${i+1}일차"><span class="n">${i+1}<span class="sun${hasKind(x)?"":" off"}"></span></span><span class="meter"><i class="b0" style="height:${b0*10}%"></i><i class="b1" style="height:${b1*10}%"></i></span></button>`}
+h+="</div>"}
+$("strip").innerHTML=h;
+}
+const ta=(k,l,ph,cls)=>`<label for="f-${k}">${l}</label><textarea id="f-${k}" data-k="${k}"${cls?` class="${cls}"`:""} placeholder="${esc(ph)}"></textarea>`;
+const rng=(k,l)=>`<label for="f-${k}">${l}</label><div class="rng"><input type="range" id="f-${k}" data-k="${k}" min="0" max="10" step="1" value="5"><output id="o-${k}">5</output></div>`;
+function dailyHTML(){
+const exs=SEC.map((s,n)=>`<section class="ex"${n?' data-after="1"':''}><h3><span>${n+1}</span>${s.t}</h3><dl class="exp"><div><dt>의도</dt><dd>${s.i}</dd></div><div><dt>목적</dt><dd>${s.p}</dd></div><div><dt>이유</dt><dd>${s.h}</dd></div>${s.e?`<div><dt>예시</dt><dd>${s.e.lead}<ul class="egs">${s.e.rows.map(r=>`<li>${r.map((v,k)=>`<span${k===s.e.q?' class="eq"':""}><b>${s.e.cols[k]}</b> ${k===s.e.q?"\""+v+"\"":v}</span>`).join("")}</li>`).join("")}</ul></dd></div>`:""}</dl>${s.f.map(f=>ta(...f)).join("")}${s.b==="b0"?rng("b0","지금, 이 말이 얼마나 사실처럼 느껴지나요?"):""}${s.b==="b1"?rng("b1","다섯 단계를 마친 지금, 같은 말이 얼마나 사실처럼 느껴지나요?")+'<p class="status" style="margin:6px 0 0">숫자가 안 내려가도 괜찮습니다. 목표는 0이 아니라 그 말과 나 사이의 틈을 알아차리는 것입니다.</p>':""}</section>`);
+const ex=exs[0]+'<button type="button" class="qback">위쪽 고정 박스 다시 보기</button>'+exs.slice(1).join("");
+const kind=`<aside class="kind" aria-labelledby="khead"><h3 id="khead">가혹하지 않아도 괜찮았던 순간</h3><p class="sub">아주 작은 것도 됩니다. 없는 날은 '없었음'도 정직한 기록입니다.</p>
+<label>어떤 종류였나요?</label><div class="chips" id="kcats"></div>
+${ta("kWhat","무슨 일이었나요?","보고서에 오타가 있었는데 고치고 그냥 넘어갔다")}
+<div class="pair"><div>${ta("kPred","평소 비판자라면 뭐라고 했을까요?","이런 것도 못 챙기면 신뢰 잃는다")}</div><div>${ta("kReal","실제로는 어떻게 됐나요?","아무도 언급하지 않았고, 저녁에 쉴 수 있었다")}</div></div>
+${ta("kDisc","비판자가 이걸 깎아내린다면? <small>\"운이었어\" 같은 말</small>","이번엔 운 좋게 넘어간 거야")}
+<label>솔직하게, 가혹하지 않은 대가가 있었나요?</label><div class="chips" id="kcost"></div>
+<label for="f-kCostN">있었다면 무엇이었나요? <small>선택</small></label><input type="text" id="f-kCostN" data-k="kCostN">
+<div class="none"><input type="checkbox" id="f-kNone" data-k="kNone"><label for="f-kNone" style="margin:0;font-weight:400">오늘은 그런 순간이 없었음</label></div></aside>`;
+return `<div class="day"><div><p class="short">시간이 없는 날은 1번 받아 적기와 5번 답장 쓰기만 해도 충분합니다.</p>${ex}</div>${kind}</div>`;
+}
+function reviewHTML(i){
+const w=wkOf(i),days=data.slice(w*7,w*7+6),last=i===N-1;
+const rec=days.filter(filled).length,kn=days.filter(hasKind).length,cost=days.filter(x=>x.kCost&&x.kCost!=="없었음").length;
+const qs=days.map((x,k)=>x.critic?`<li>${esc(x.critic)}<em>${w*7+k+1}일차</em></li>`:"").join("")||`<li style="background:none;padding:0;font-family:inherit"><p class="empty">이번 주에 적은 비판자의 말이 여기에 모입니다.</p></li>`;
+const replies=days.map((x,k)=>x.reply?`<li style="font-family:inherit;color:var(--ink);background:var(--tealbg)">${esc(x.reply)}<em>${w*7+k+1}일차 답장</em></li>`:"").join("");
+let cmp="";if(last){const a=avgDrop(data.slice(0,6)),b=avgDrop(data.slice(21,27));cmp=`<div class="stat"><b>${fmtDrop(a)} → ${fmtDrop(b)}</b><span>1주차 대비 4주차 평균 변화</span></div>`}
+const sec=RV.map(([id,t,fs,ex])=>`<div class="rvsec"><h3>${t}</h3>${ex||""}${fs.map(f=>ta(...f)).join("")}</div>`).join("");
+const name=last?`<div class="namebox"><h3>비판자에게 이름 붙이기</h3><p style="margin:0;font-size:15px">4주 동안 이 목소리의 말투와 출처, 반복되는 패턴을 봤습니다. 이제 그 관찰에서 나온 이름을 붙입니다. 조롱하는 이름보다 담담한 이름이 오래 갑니다. 이름이 생기면 "내가 한심하다"가 "검사관이 또 한심하다고 한다"로 바뀝니다.</p>${NAME.map(f=>ta(...f)).join("")}</div>`:"";
+return `<div class="stats"><div class="stat"><b>${rec}일</b><span>이번 주 기록한 날</span></div><div class="stat"><b>${fmtDrop(avgDrop(days))}</b><span>연습 후 평균 변화</span></div><div class="stat"><b>${kn}번</b><span>괜찮았던 순간</span></div><div class="stat"><b>${cost}번</b><span>대가가 있었다고 적은 날</span></div>${cmp}</div>
+<div class="cols"><div><h3>이번 주 비판자의 말</h3><ul class="quotes">${qs}</ul></div><div><h3>이번 주 내가 쓴 답장</h3><ul class="quotes">${replies||'<li style="background:none;padding:0;font-family:inherit"><p class="empty">5번 답장 쓰기에 적은 문장이 여기에 모입니다.</p></li>'}</ul></div></div>
+${sec}${name}`;
+}
+let qHidden=false;try{qHidden=sessionStorage.getItem("voiceQHide")==="1"}catch(e){}
+function pin(){const t=(data[cur]&&data[cur].critic||"").trim();document.body.classList.toggle("qhide",qHidden);
+document.querySelectorAll(".qline").forEach(q=>{q.hidden=!t;q.querySelector(".qtext").textContent=t});
+$("fq").textContent=t;floatCheck();}
+function floatCheck(){const f=$("float");const t=(data[cur]&&data[cur].critic||"").trim();const secs=document.querySelectorAll('#dbody [data-after]');
+let show=false;if(t&&!qHidden&&secs.length&&!isRv(cur)){const a=secs[0].getBoundingClientRect().top,b=secs[secs.length-1].getBoundingClientRect().bottom;const fa=document.activeElement,inLater=!!(fa&&fa.closest&&fa.closest("#dbody [data-after]"));const c=$("f-critic"),ct=c?c.getBoundingClientRect():null,critOff=ct?(ct.bottom<0||ct.top>innerHeight):true;show=(a<60&&b>140)||(inLater&&critOff)}
+f.classList.toggle("show",show);}
+function setHide(v){qHidden=v;try{sessionStorage.setItem("voiceQHide",v?"1":"0")}catch(e){}pin()}
+function chips(el,list,key,multi){
+if(!el)return;const v=data[cur][key];
+el.innerHTML=list.map(c=>{const p=multi?(v||[]).includes(c):v===c;return `<button type="button" class="chip" aria-pressed="${p}" data-c="${esc(c)}">${esc(c)}</button>`}).join("");
+el.onclick=e=>{const b=e.target.closest(".chip");if(!b)return;const c=b.dataset.c;
+own(cur);if(multi){const a=new Set(data[cur][key]||[]);a.has(c)?a.delete(c):a.add(c);data[cur][key]=[...a]}else{data[cur][key]=data[cur][key]===c?"":c}
+chips(el,list,key,multi);change();};
+}
+function day(){
+const x=data[cur],rv=isRv(cur);
+$("dtitle").textContent=rv?(cur===N-1?`${cur+1}일차 · 마지막 리뷰와 이름 붙이기`:`${cur+1}일차 · ${wkOf(cur)+1}주차 리뷰`):`${cur+1}일차 · 오늘의 연습`;
+$("dgoal").textContent=rv?"지난 6일의 기록을 읽고, 반복되는 것과 달라진 것을 적습니다.":"한 장면을 골라 다섯 단계를 순서대로 지나갑니다. 오른쪽에는 가혹하지 않아도 괜찮았던 순간을 적습니다.";
+$("dbody").innerHTML=rv?reviewHTML(cur):dailyHTML();
+document.querySelectorAll("#dbody [data-k]").forEach(el=>{const k=el.dataset.k;
+if(el.type==="checkbox")el.checked=!!x[k];else if(el.type==="range"){el.value=x[k]??5;$("o-"+k).textContent=el.value}else el.value=x[k]||"";});
+if(!rv){chips($("kcats"),KC,"kCats",true);chips($("kcost"),CC,"kCost",false)}
+pin();if(typeof renderShare==="function"){shSel=new Set();renderShare();saveMsgInit();$("shMsg").textContent=""}
+$("prev").disabled=cur===0;$("next").textContent=cur===N-1?"전체 패턴 보기":"다음 날로";
+}
+function patterns(){
+const dd=data.filter((x,i)=>!isRv(i));
+const done=dd.filter(filled).length,kinds=dd.filter(hasKind).length,nones=dd.filter(x=>x.kNone&&!hasKind(x)).length;
+$("stats").innerHTML=[[done+"일","목소리를 기록한 날 (24일 중)"],[fmtDrop(avgDrop(dd)),"연습 후 '사실처럼 느껴짐' 평균 변화"],[kinds+"번","괜찮았던 순간"],[nones+"일","'없었음'이라고 정직하게 적은 날"]].map(([b,s])=>`<div class="stat"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join("");
+const qs=data.map((x,i)=>!isRv(i)&&x.critic?`<li>${esc(x.critic)}<em>${i+1}일차</em></li>`:"").join("");
+$("quotes").innerHTML=qs||`<li style="background:none;padding:0;font-family:inherit"><p class="empty">아직 기록이 없습니다. 1일차에 들린 문장을 적으면 여기에 모입니다.</p></li>`;
+const bars=(list,count)=>{const n=list.map(count),m=Math.max(1,...n);return n.some(v=>v)?list.map((c,i)=>`<div class="bar"><span>${esc(c)}</span><div><i style="width:${n[i]/m*100}%"></i></div><b>${n[i]}</b></div>`).join(""):`<p class="empty">기록이 쌓이면 여기에 보입니다.</p>`};
+$("kbars").innerHTML=bars(KC,c=>dd.filter(x=>(x.kCats||[]).includes(c)).length);
+$("cbars").innerHTML=bars(CC,c=>dd.filter(x=>x.kCost===c).length);
+}
+function persistLocal(){try{localStorage.setItem(LS,JSON.stringify({data,cur}))}catch(e){}}
+function own(i){if(!data[i]||Object.isFrozen(data[i]))data[i]=JSON.parse(JSON.stringify(data[i]||{}));return data[i]}
+function change(){
+own(cur).upd=Date.now();
+persistLocal();
+if(!data[cur].date)data[cur].date=today();
+dirty.add(cur);strip();patterns();renderShare();
+$("save").textContent=db&&uid?"저장 중…":"이 휴대폰에 저장됨";
+clearTimeout(timer);timer=setTimeout(flush,800);
+}
+async function flush(){
+if(!db||!uid||writing)return;writing=true;
+try{while(dirty.size){const i=[...dirty][0];dirty.delete(i);await db.collection("data/users/"+uid).doc("d"+(i+1)).set(JSON.parse(JSON.stringify(data[i])));}
+$("save").textContent="계정에 저장됨";}
+catch(e){$("save").textContent="계정 저장 실패, 이 브라우저에는 남아 있습니다";}
+writing=false;if(dirty.size)flush();
+}
+function go(i){if(dirty.size){clearTimeout(timer);flush()}persistLocal();cur=i;strip();day();persistLocal();try{$("daywrap").scrollIntoView({behavior:"smooth"})}catch(e){}}
+$("dbody").addEventListener("input",e=>{const el=e.target,k=el.dataset&&el.dataset.k;if(!k)return;
+own(cur)[k]=el.type==="checkbox"?el.checked:el.type==="range"?Number(el.value):el.value;
+if(el.type==="range")$("o-"+k).textContent=el.value;if(k==="critic")pin();change();});
+$("strip").addEventListener("click",e=>{const b=e.target.closest(".cell");if(!b)return;go(Number(b.dataset.i))});
+$("prev").onclick=()=>{if(cur>0)go(cur-1)};
+$("next").onclick=()=>{if(cur<N-1)go(cur+1);else $("pat").scrollIntoView({behavior:"smooth"})};
+$("copy").onclick=async()=>{
+const out=data.map((x,i)=>{const L=[];
+if(isRv(i)){RV.forEach(([,t,fs])=>fs.forEach(([k,l])=>{if(x[k])L.push(l+": "+x[k])}));if(i===N-1)NAME.forEach(([k,l])=>{if(x[k])L.push(l.replace(/<[^>]+>/g,"").trim()+": "+x[k])});
+return L.length?`[${i+1}일차 · ${wkOf(i)+1}주차 리뷰]\n`+L.join("\n"):""}
+if(!filled(x)&&!hasKind(x)&&!x.kNone)return"";
+SEC.forEach(s=>s.f.forEach(([k,l])=>{if(x[k])L.push(l.replace(/<[^>]+>/g,"").trim()+": "+x[k])}));
+if(filled(x))L.push(`사실처럼 느껴짐: ${x.b0??5} → ${x.b1??5}`);
+if(hasKind(x)){L.push("괜찮았던 순간: "+(x.kCats||[]).join(", ")+(x.kWhat?" / "+x.kWhat:""));if(x.kPred)L.push("  비판자 예측: "+x.kPred);if(x.kReal)L.push("  실제: "+x.kReal);if(x.kDisc)L.push("  깎아내리는 말: "+x.kDisc);if(x.kCost)L.push("  대가: "+x.kCost+(x.kCostN?" ("+x.kCostN+")":""));}
+else if(x.kNone)L.push("괜찮았던 순간: 없었음");
+return `[${i+1}일차]${x.date?" "+x.date:""}\n`+L.join("\n")}).filter(Boolean).join("\n\n");
+try{await navigator.clipboard.writeText(out||"아직 기록이 없습니다.");$("copied").textContent="복사됨"}catch(e){$("copied").textContent="복사가 막혀 있습니다"}};
+
+const strip_=t=>String(t).replace(/<small>.*?<\/small>/g,"").replace(/<[^>]+>/g,"").trim();
+let shSel=new Set();
+function shItems(i){const x=data[i]||{},out=[];const add=(k,sec,label,val,q)=>{if(val!=null&&String(val).trim()!=="")out.push({k,sec,label,val:String(val),q:!!q})};
+if(isRv(i)){RV.forEach(([,t,fs])=>fs.forEach(([k,l])=>add(k,t,strip_(l),x[k])));if(i===N-1)NAME.forEach(([k,l])=>add(k,"이름 붙이기",strip_(l),x[k]));return out}
+SEC.forEach((s,n)=>s.f.forEach(([k,l])=>add(k,`${n+1}. ${s.t}`,strip_(l),x[k],k==="critic")));
+if(filled(x))add("score","점수","사실처럼 느껴진 정도 (연습 전 → 후)",`${x.b0??5} → ${x.b1??5}`);
+const ks="괜찮았던 순간";
+if(x.kCats&&x.kCats.length)add("kCats",ks,"종류",x.kCats.join(", "));
+add("kWhat",ks,"무슨 일이었나",x.kWhat);add("kPred",ks,"비판자의 예측",x.kPred);add("kReal",ks,"실제",x.kReal);add("kDisc",ks,"깎아내리는 말",x.kDisc);
+if(x.kCost)add("kCost",ks,"가혹하지 않은 대가",x.kCost+(x.kCostN?` (${x.kCostN})`:""));
+if(x.kNone&&!hasKind(x))add("kNone",ks,"오늘","그런 순간이 없었음");
+return out}
+function shTitle(){const x=data[cur]||{};return `비판자와 거리두기 · ${cur+1}일차${isRv(cur)?" 리뷰":""}${x.date?" ("+x.date+")":""}`}
+function renderShare(){
+const items=shItems(cur),keys=new Set(items.map(it=>it.k));shSel=new Set([...shSel].filter(k=>keys.has(k)));
+$("shList").innerHTML=items.length?items.map(it=>`<label><input type="checkbox" data-sk="${esc(it.k)}"${shSel.has(it.k)?" checked":""}><span>${esc(it.label)}<small>${esc(it.sec)} · ${esc(it.val.length>40?it.val.slice(0,40)+"…":it.val)}</small></span></label>`).join(""):`<p class="empty">아직 공유할 수 있는 기록이 없습니다.</p>`;
+const all=$("shAll");all.disabled=!items.length;all.checked=items.length>0&&shSel.size===items.length;all.indeterminate=shSel.size>0&&shSel.size<items.length;
+const sel=items.filter(it=>shSel.has(it.k));let last="";
+$("shCard").innerHTML=`<h4>${esc(shTitle())}</h4>`+(sel.length?sel.map(it=>{const h=it.sec!==last?it.sec:"";last=it.sec;return `<div class="ci${it.q?" cq":""}"><b>${esc((h?h+" · ":"")+it.label)}</b><p>${esc(it.val)}</p></div>`}).join(""):`<p class="empty">위에서 항목을 고르면 카드 미리보기가 여기에 보입니다.</p>`);
+}
+function shText(){const items=shItems(cur).filter(it=>shSel.has(it.k));if(!items.length)return"";let last="",L=[shTitle(),""];
+items.forEach(it=>{if(it.sec!==last){if(last)L.push("");L.push("["+it.sec+"]");last=it.sec}L.push(`${it.label}: ${it.val}`)});return L.join("\n")}
+$("shList").addEventListener("change",e=>{const k=e.target.dataset&&e.target.dataset.sk;if(!k)return;e.target.checked?shSel.add(k):shSel.delete(k);$("shMsg").textContent="";renderShare()});
+$("shAll").addEventListener("change",e=>{shSel=e.target.checked?new Set(shItems(cur).map(it=>it.k)):new Set();$("shMsg").textContent="";renderShare()});
+$("shCopy").onclick=async()=>{const t=shText();if(!t){$("shMsg").textContent="공유할 항목을 먼저 골라주세요";return}
+try{await navigator.clipboard.writeText(t);$("shMsg").textContent="복사됨"}catch(e){$("shMsg").textContent="복사가 막혀 있습니다. 미리보기 글을 직접 선택해 복사해 주세요"}};
+$("saveBtn").onclick=async()=>{own(cur).upd=Date.now();data[cur].savedAt=new Date().toISOString();if(!data[cur].date)data[cur].date=today();
+persistLocal();dirty.add(cur);clearTimeout(timer);const tm=new Date().toTimeString().slice(0,5);
+if(db&&uid){$("saveMsg").textContent="저장 중…";await flush();$("saveMsg").textContent=$("save").textContent.includes("실패")?"계정 저장 실패, 이 브라우저에는 남아 있습니다":`계정에 저장됨 · ${tm}`}
+else $("saveMsg").textContent=`이 휴대폰에 저장됨 · ${tm}`;
+strip();renderShare();$("shareBox").open=true;};
+function saveMsgInit(){const x=data[cur]||{};$("saveMsg").textContent=x.savedAt?`마지막 저장 · ${new Date(x.savedAt).toLocaleDateString("ko-KR")} ${new Date(x.savedAt).toTimeString().slice(0,5)}`:"입력 내용은 자동으로도 저장되지만, 다 쓴 뒤 눌러 확정해 두세요";$("saveBtn").textContent=isRv(cur)?"리뷰 저장":"오늘 기록 저장"}
+$("fx").onclick=()=>setHide(true);
+$("dbody").addEventListener("click",e=>{if(e.target.closest(".qback"))setHide(false)});
+document.addEventListener("scroll",floatCheck,{passive:true,capture:true});$("dbody").addEventListener("focusin",floatCheck);$("dbody").addEventListener("focusout",()=>setTimeout(floatCheck,0));window.addEventListener("resize",floatCheck);
+strip();day();patterns();
+
+const shSend=$("shSend");if(navigator.share)shSend.hidden=false;
+shSend.onclick=async()=>{const t=shText();if(!t){$("shMsg").textContent="공유할 항목을 먼저 골라주세요";return}try{await navigator.share({text:t})}catch(e){}};
+function backupObj(){return {app:"voice28",version:1,exported:new Date().toISOString(),data}}
+const bkMsg=t=>{$("bkMsg").textContent=t};
+$("bkSave").onclick=()=>{try{const b=new Blob([JSON.stringify(backupObj(),null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`거리두기-백업-${today()}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);bkMsg("백업 파일을 저장했습니다. 파일 앱이나 다운로드 폴더에서 확인하세요")}catch(e){bkMsg("파일 저장이 막혀 있습니다. '백업을 글로 복사'를 써주세요")}};
+$("bkCopy").onclick=async()=>{try{await navigator.clipboard.writeText(JSON.stringify(backupObj()));bkMsg("백업을 복사했습니다. 메모 앱 등에 붙여넣어 보관하세요")}catch(e){bkMsg("복사가 막혀 있습니다")}};
+let pending=null;
+function check(text){let o;try{o=JSON.parse(text)}catch(e){bkMsg("백업 형식이 아닙니다");return}
+if(!o||o.app!=="voice28"||!Array.isArray(o.data)){bkMsg("이 앱의 백업 파일이 아닙니다");return}
+const days=o.data.filter(x=>x&&Object.keys(x).length).length;pending=o.data;
+$("bkInfo").textContent=`${days}일치 기록이 들어 있는 백업입니다${o.exported?" ("+new Date(o.exported).toLocaleDateString("ko-KR")+" 저장)":""}. 복원하면 지금 이 휴대폰의 기록은 모두 백업 내용으로 바뀝니다.`;$("bkConfirm").hidden=false;bkMsg("")}
+$("bkFile").onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>check(String(r.result));r.readAsText(f);e.target.value=""};
+$("bkPasteGo").onclick=()=>{const t=$("bkPaste").value.trim();if(!t){bkMsg("붙여넣은 내용이 없습니다");return}check(t)};
+$("bkNo").onclick=()=>{pending=null;$("bkConfirm").hidden=true;bkMsg("복원을 취소했습니다")};
+$("bkYes").onclick=()=>{if(!pending)return;data=Array.from({length:N},(_,i)=>{const x=pending[i];return x&&typeof x==="object"?JSON.parse(JSON.stringify(x)):{}});pending=null;$("bkConfirm").hidden=true;$("bkPaste").value="";persistLocal();strip();day();patterns();bkMsg("복원했습니다")};
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+
+}
+</script>
+</body>
+</html>
