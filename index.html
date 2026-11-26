@@ -10,8 +10,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="거리두기">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>비판자와 거리두기 4주</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
@@ -84,23 +85,30 @@ input[type=range]{width:100%;accent-color:var(--teal2);height:28px}
 .qline{display:flex;gap:8px;align-items:flex-start;margin:0 0 10px;background:var(--claybg);border-radius:8px;padding:8px 12px}
 .qline span{flex:1;font-family:"Gowun Batang",serif;font-size:15px;color:var(--clay);line-height:1.5}
 .qline b{flex:none;font-size:13px;font-weight:600;color:var(--clay);padding-top:2px}
-.float{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(760px,calc(100% - 24px));z-index:20;display:none;align-items:flex-start;gap:10px;background:var(--claybg);border:1px solid color-mix(in srgb,var(--clay) 45%,transparent);border-radius:12px;padding:10px 8px 10px 14px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.float{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(760px,calc(100% - 24px));z-index:20;display:none;align-items:flex-start;gap:10px;background:var(--claybg);border:1px solid color-mix(in srgb,var(--clay) 45%,transparent);border-radius:12px;padding:10px 6px 10px 14px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
 .float.show{display:flex}
-.float div{flex:1}
+.fbody{flex:1}
 .float b{display:block;font-size:13px;font-weight:600;color:var(--clay)}
-.float span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-family:"Gowun Batang",serif;font-size:16px;color:var(--clay);line-height:1.5}
-.xbtn{flex:none;width:44px;height:44px;border:0;background:transparent;color:var(--clay);font-size:22px;line-height:1;cursor:pointer;border-radius:8px}
+.float #fq{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-family:"Gowun Batang",serif;font-size:16px;color:var(--clay);line-height:1.5}
+.float #fq.empty{font-family:inherit;font-size:14px;color:var(--mute)}
+.fmini{display:none;font-size:14px;font-weight:600;color:var(--clay);white-space:nowrap;align-self:center}
+.xbtn{flex:none;width:44px;height:44px;border:0;background:transparent;color:var(--clay);font-size:24px;line-height:1;cursor:pointer;border-radius:8px}
 .xbtn:hover{background:color-mix(in srgb,var(--clay) 12%,transparent)}
-.xbtn:focus-visible,.qback:focus-visible{outline:2px solid var(--clay);outline-offset:2px}
-.qback{font:inherit;font-size:13px;color:var(--clay);background:transparent;border:1px dashed color-mix(in srgb,var(--clay) 50%,transparent);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer;margin:0 0 10px}
-.qhide .qline,.qhide .float{display:none!important}
-.qback{display:none}.qhide .qback{display:inline-block}
+.xbtn:focus-visible{outline:2px solid var(--clay);outline-offset:2px}
+.float.mini{left:auto;right:calc(12px + env(safe-area-inset-right,0px));transform:none;width:auto;padding:0 2px 0 14px;align-items:center;cursor:pointer;border-radius:999px}
+.float.mini .fbody{display:none}
+.float.mini .fmini{display:block}
+.float.mini .xbtn{border-radius:999px}
+.top{padding-top:calc(max(clamp(24px,4vw,52px),calc(env(safe-area-inset-top,0px) + 16px)) + var(--fh,0px))}
+.qin{font-family:"Gowun Batang",serif;font-weight:400;font-size:16px;color:var(--clay);background:var(--claybg);border:1px solid color-mix(in srgb,var(--clay) 35%,transparent);border-radius:6px;padding:1px 8px;margin:0 2px;line-height:1.7;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.qin.empty{font-family:inherit;font-size:14px;color:var(--mute)}
 .short{font-size:14px;color:var(--mute);margin:0 0 18px;border-left:2px solid var(--line);border-radius:0;padding-left:12px}
 .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 16px}
 .kind{background:var(--sunbg);border-radius:14px;padding:20px 20px 22px}
 .kind h3{color:var(--sunink)}
 .kind .sub{margin:0;color:var(--sunink);font-size:14px}
-@media(min-width:901px){.kind{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto}}
+.kind{margin-top:28px}
+.day.one{grid-template-columns:minmax(0,1fr);max-width:860px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}
 .chip[aria-pressed=true]{background:var(--sun);border-color:var(--sun);color:#3a2800}
@@ -174,7 +182,7 @@ input[type=range]{width:100%;accent-color:var(--teal2);height:28px}
 <h1>비판자와 거리두기 4주</h1>
 <p class="lede">머릿속의 가혹한 목소리를 없애려는 게 아니라, 그 목소리가 '나'가 아니라 '나에게 들리는 말'이라는 걸 알아차리는 훈련입니다. 하루에 다섯 단계를 한 번에, 7일마다 리뷰합니다. 빠진 날은 그냥 건너뛰어도 됩니다.</p>
 <div class="weeks" id="strip"></div>
-<div class="legend"><span><i class="key0"></i>연습 전, 그 말이 사실처럼 느껴진 정도</span><span><i class="key1"></i>연습 후</span><span><i class="sun"></i>괜찮았던 순간을 기록한 날</span><span><i class="keyr"></i>리뷰하는 날</span></div>
+<div class="legend"><span><i class="key0"></i>연습 전, 그 말이 사실처럼 느껴진 정도</span><span><i class="key1"></i>연습 후</span><span><i class="sun"></i>괜찮았던 순간을 기록한 리뷰</span><span><i class="keyr"></i>리뷰하는 날</span></div>
 </div>
 </header>
 
@@ -226,6 +234,7 @@ input[type=range]{width:100%;accent-color:var(--teal2);height:28px}
 <div class="note"><h3>점수를 두 번 매기는 이유</h3><p>"이 말이 사실인가"가 아니라 "얼마나 사실처럼 느껴지나"를 묻습니다. 내용과 싸우지 않고, 그 말이 나를 붙잡는 힘이 변하는지만 관찰하기 위해서입니다.</p></div>
 <div class="note"><h3>괜찮았던 순간을 '예측과 실제'로 적는 이유</h3><p>좋은 일만 적으면 비판자는 "운이었어"로 지워버립니다. 비판자의 예측과 실제 결과를 나란히 적으면 그 차이가 지우기 어려운 증거가 됩니다. 인지행동치료의 행동 실험과 같은 구조입니다.</p></div>
 <div class="note"><h3>'대가가 있었다'를 선택지로 둔 이유</h3><p>늘 좋았다고만 적게 하면 이 기록은 설득이 되고 신뢰를 잃습니다. 대가가 있던 날도 세어야 비판자의 "느슨해지면 무너진다"는 주장을 공정하게 검증할 수 있습니다.</p></div>
+<div class="note"><h3>괜찮았던 순간을 7일마다 적는 이유</h3><p>매일 찾으라고 하면 또 하나의 숙제가 되고, 없는 날이 이어지면 오히려 비판자의 증거가 됩니다. 일주일을 돌아보면 그날그날은 지나쳤던 작은 순간이 더 잘 보입니다. 대신 기억이 흐려져 아주 작은 순간은 놓칠 수 있으니, 생각날 때 1번 상황 칸 옆에 짧게 메모해 두어도 좋습니다.</p></div>
 <div class="note"><h3>7일마다 리뷰하는 이유</h3><p>하루치 기록은 그날의 감정에 묻히지만, 일주일을 모아 보면 상황, 시간, 사람의 반복이 보입니다. 다음 주에 집중할 것 하나를 정하는 근거도 여기서 나옵니다.</p></div>
 <div class="note"><h3>막으려던 것을 7일마다 묻는 이유</h3><p>비판자가 무엇을 지키려는지는 하루치 기록보다 일주일을 모아 볼 때 더 잘 보입니다. 매일 묻기엔 어려운 질문이라 리뷰로 옮기고, 찾은 답을 다음 주 답장의 첫 문장으로 쓰게 했습니다.</p></div>
 <div class="note"><h3>이름 붙이기를 28일차에 두는 이유</h3><p>처음에 붙이는 이름은 추측이거나 조롱이 되기 쉽습니다. 4주 동안 이 목소리의 말투와 출처, 반복되는 패턴을 본 뒤에 붙이는 이름은 관찰에서 나온 이름이라 오래 갑니다.</p></div>
@@ -241,7 +250,7 @@ input[type=range]{width:100%;accent-color:var(--teal2);height:28px}
 <p class="status" style="margin-top:20px">기록은 이 휴대폰 안에만 저장되고, 어디로도 전송되지 않습니다. 다른 기기와 자동으로 이어지지 않으니, 위의 백업을 가끔 받아두세요.</p>
 </div></section>
 </main>
-<div class="float" id="float" role="region" aria-label="1번에서 적은 비판자의 말"><div><b>1번에서 적은 비판자의 말</b><span id="fq"></span></div><button type="button" class="xbtn" id="fx" aria-label="비판자의 말 숨기기">&times;</button></div>
+<div class="float" id="float" role="region" aria-label="1번에서 적은 비판자의 말"><div class="fbody"><b>1번에서 적은 비판자의 말</b><span id="fq"></span></div><span class="fmini" aria-hidden="true">비판자의 말</span><button type="button" class="xbtn" id="fx" aria-label="작게 접기" aria-expanded="true">&times;</button></div>
 
 <script>
 {
@@ -251,7 +260,7 @@ const SEC=[
 {t:"말투의 주인",i:"이 말투가 누구의 목소리, 어떤 분위기를 닮았는지 찾아봅니다.",p:"이 목소리가 처음부터 내 것은 아니었을 수 있다는 걸 확인합니다. 누군가를 탓하려는 게 아닙니다.",h:"내면의 비판은 대개 한때 바깥에서 들은 말이 내면화된 것입니다. 출처가 보이면 그 말은 '나에 대한 진실'에서 '어디선가 배운 말'로 자리를 옮깁니다.",f:[["owner","이 말투, 누구를 닮았나요? <small>사람, 집단, 분위기 모두 가능</small>","시험 성적표를 보던 아버지의 말투"],["when","언제쯤 처음 들었던 것 같나요? <small>모르면 비워도 됩니다</small>","중학생 무렵"]]},
 {t:"사실과 판결",i:"카메라가 찍을 수 있는 사실과 비판자가 내린 판결을 나눕니다. 그리고 판결이 행동에 대한 것인지, 나라는 존재에 대한 것인지 구분합니다.",p:"쓸모 있는 피드백은 남기고, 존재에 대한 공격만 걸러냅니다.",h:"행동에 대한 말(죄책감)은 고칠 수 있지만, 존재에 대한 말(수치심)은 고칠 대상이 없어 무력감만 남깁니다. 이 단계는 거리두기가 정당한 피드백까지 밀어내는 회피로 흐르지 않게 하는 안전장치이기도 합니다.",f:[["fact","일어난 일 <small>카메라가 찍을 수 있는 것만</small>","질문을 받고 5초 정도 답하지 못했다. 이후 자료를 찾아 답했다"],["verdict","비판자의 판결","넌 무능하다"],["useful","행동에 대한 말인가요, 존재에 대한 말인가요? 행동이라면 쓸모 있는 부분은?","존재에 대한 말. 쓸모 있는 부분: 다음엔 예상 질문을 하나 더 준비"]]},
 {t:"친구 테스트",i:"같은 일을 겪은 친한 친구에게 할 말을 적고, 그 말을 나에게 하기 어려운 이유를 봅니다.",p:"나에게만 적용하는 이중 기준을 드러냅니다.",h:"대부분은 남에게는 너그러울 줄 압니다. 그 능력이 이미 있다는 게 확인되고, 나에게 하기 어려운 이유(봐주는 것 같아서, 그럴 자격이 없어서)가 비판자의 핵심 신념을 가리키는 단서가 됩니다.",f:[["friend","같은 일을 겪은 친구에게 뭐라고 하겠어요?","갑자기 질문받으면 누구나 그래. 결국 답했잖아"],["hard","그 말을 나에게 하기 어렵다면, 무엇이 걸리나요?","나한테 그러면 봐주는 것 같아서"]]},
-{t:"답장 쓰기",i:"먼저 모든 사정을 알고 나를 너그럽게 보는 '신의 눈'으로 오늘의 나를 바라봅니다. 그다음 그 시선에서 비판자에게 짧은 답장을 씁니다. 의도는 인정하되, 이번엔 어떻게 할지는 내가 정합니다.",p:"1번부터 4번까지 본 것을 더 넓은 시선 위에서 하나의 새 문장으로 합칩니다.",h:"비판자는 한 장면만 크게 확대해서 봅니다. 나의 과거와 사정, 애쓴 것까지 다 아는 시선으로 물러서면 같은 장면이 다르게 보입니다. 자비중심치료의 '자비로운 시선', 수용전념치료의 '관찰하는 자기'와 같은 원리입니다. 그 시선에서 쓰는 답장은 비판자와 싸우지 않으면서 선택을 내 쪽으로 가져옵니다. 종교가 없다면 '모든 걸 아는 너그러운 존재'로 바꿔 생각해도 됩니다.",f:[["godeye","신의 눈으로 오늘의 나를 본다면, 무엇이 보이나요? <small>판단하지 않고, 사정을 다 아는 시선으로</small>","긴장한 채로도 끝까지 답하려고 애쓴 사람이 보인다. 5초 멈춘 건 그 하루의 아주 작은 조각이다"],["reply","그 시선에서 비판자에게 보내는 짧은 답장 <small>\"지켜주려는 거 알아\"로 시작해 보세요</small>","지켜주려는 거 알아. 그래도 5초 멈춘 걸로 나를 판단하진 않을게. 다음 회의는 예상 질문 하나만 더 준비하고 넘어갈게."]],b:"b1"}
+{t:"답장 쓰기",i:"먼저 모든 사정을 알고 나를 너그럽게 보는 '신의 눈'으로 오늘의 나를 바라봅니다. 그다음 그 시선에서 비판자에게 짧은 답장을 씁니다. 의도는 인정하되, 이번엔 어떻게 할지는 내가 정합니다.",p:"1번부터 4번까지 본 것을 더 넓은 시선 위에서 하나의 새 문장으로 합칩니다.",h:"비판자는 한 장면만 크게 확대해서 봅니다. 나의 과거와 사정, 애쓴 것까지 다 아는 시선으로 물러서면 같은 장면이 다르게 보입니다. 자비중심치료의 '자비로운 시선', 수용전념치료의 '관찰하는 자기'와 같은 원리입니다. 그 시선에서 쓰는 답장은 비판자와 싸우지 않으면서 선택을 내 쪽으로 가져옵니다. 종교가 없다면 '모든 걸 아는 너그러운 존재'로 바꿔 생각해도 됩니다.",f:[["godeye","신의 눈으로 오늘의 나를 본다면, 무엇이 보이나요? <small>판단하지 않고, 사정을 다 아는 시선으로</small>","긴장한 채로도 끝까지 답하려고 애쓴 사람이 보인다. 5초 멈춘 건 그 하루의 아주 작은 조각이다"],["reply","그 시선에서 나에게 <span class=\"qin\"></span> 이런 말을 하는 비판자에게 짧은 답장 <small>\"내 마음을 지켜주려는 거 알아\"로 시작해 보세요</small>","내 마음을 지켜주려는 거 알아. 그래도 5초 멈춘 걸로 나를 판단하진 않을게. 다음 회의는 예상 질문 하나만 더 준비하고 넘어갈게."]],b:"b1"}
 ];
 const EX=[
 {lead:"요약하거나 다듬으면 비판자의 말투가 사라집니다. 말투가 남아야 2번에서 그 주인을 찾을 수 있습니다.",cols:["요약해서 적으면","토씨 그대로 적으면"],q:1,rows:[["자책했다","넌 진짜 구제불능이야. 이러니까 아무도 안 믿지."],["실수가 신경 쓰였다","또 시작이네. 그럴 줄 알았어."]]},
@@ -285,9 +294,9 @@ const fmtDrop=v=>v==null?"–":(v>0?"−":v<0?"+":"")+Math.abs(v).toFixed(1);
 function strip(){
 let h="";for(let w=0;w<4;w++){h+=`<div class="wk" role="list" aria-label="${w+1}주"><span>${w+1}주</span>`;
 for(let k=0;k<7;k++){const i=w*7+k,x=data[i]||{},on=i===cur?" on":"";
-if(isRv(i)){const done=!!(x.rChg||x.rSit||x.rNext||x.nName);h+=`<button class="cell rv${on}" role="listitem" data-i="${i}" aria-label="${i+1}일차 리뷰"><span class="n">${i+1}${done?' <span class="sun"></span>':""}</span><span class="r">${i===N-1?"마지막 리뷰":"리뷰"}</span></button>`;continue}
+if(isRv(i)){const done=hasKind(x);h+=`<button class="cell rv${on}" role="listitem" data-i="${i}" aria-label="${i+1}일차 리뷰"><span class="n">${i+1}${done?' <span class="sun"></span>':""}</span><span class="r">${i===N-1?"마지막 리뷰":"리뷰"}</span></button>`;continue}
 const f=filled(x),b0=f?(x.b0??5):0,b1=f?(x.b1??5):0;
-h+=`<button class="cell${on}" role="listitem" data-i="${i}" aria-label="${i+1}일차"><span class="n">${i+1}<span class="sun${hasKind(x)?"":" off"}"></span></span><span class="meter"><i class="b0" style="height:${b0*10}%"></i><i class="b1" style="height:${b1*10}%"></i></span></button>`}
+h+=`<button class="cell${on}" role="listitem" data-i="${i}" aria-label="${i+1}일차"><span class="n">${i+1}</span><span class="meter"><i class="b0" style="height:${b0*10}%"></i><i class="b1" style="height:${b1*10}%"></i></span></button>`}
 h+="</div>"}
 $("strip").innerHTML=h;
 }
@@ -295,37 +304,39 @@ const ta=(k,l,ph,cls)=>`<label for="f-${k}">${l}</label><textarea id="f-${k}" da
 const rng=(k,l)=>`<label for="f-${k}">${l}</label><div class="rng"><input type="range" id="f-${k}" data-k="${k}" min="0" max="10" step="1" value="5"><output id="o-${k}">5</output></div>`;
 function dailyHTML(){
 const exs=SEC.map((s,n)=>`<section class="ex"${n?' data-after="1"':''}><h3><span>${n+1}</span>${s.t}</h3><dl class="exp"><div><dt>의도</dt><dd>${s.i}</dd></div><div><dt>목적</dt><dd>${s.p}</dd></div><div><dt>이유</dt><dd>${s.h}</dd></div>${s.e?`<div><dt>예시</dt><dd>${s.e.lead}<ul class="egs">${s.e.rows.map(r=>`<li>${r.map((v,k)=>`<span${k===s.e.q?' class="eq"':""}><b>${s.e.cols[k]}</b> ${k===s.e.q?"\""+v+"\"":v}</span>`).join("")}</li>`).join("")}</ul></dd></div>`:""}</dl>${s.f.map(f=>ta(...f)).join("")}${s.b==="b0"?rng("b0","지금, 이 말이 얼마나 사실처럼 느껴지나요?"):""}${s.b==="b1"?rng("b1","다섯 단계를 마친 지금, 같은 말이 얼마나 사실처럼 느껴지나요?")+'<p class="status" style="margin:6px 0 0">숫자가 안 내려가도 괜찮습니다. 목표는 0이 아니라 그 말과 나 사이의 틈을 알아차리는 것입니다.</p>':""}</section>`);
-const ex=exs[0]+'<button type="button" class="qback">위쪽 고정 박스 다시 보기</button>'+exs.slice(1).join("");
-const kind=`<aside class="kind" aria-labelledby="khead"><h3 id="khead">가혹하지 않아도 괜찮았던 순간</h3><p class="sub">아주 작은 것도 됩니다. 없는 날은 '없었음'도 정직한 기록입니다.</p>
+const ex=exs.join("");
+
+return `<div class="day one"><div><p class="short">시간이 없는 날은 1번 받아 적기와 5번 답장 쓰기만 해도 충분합니다.</p>${ex}</div></div>`;
+}
+function kindHTML(){return `<aside class="kind" aria-labelledby="khead"><h3 id="khead">이번 주, 가혹하지 않아도 괜찮았던 순간</h3><p class="sub">지난 6일을 돌아보며 하나를 골라 적습니다. 아주 작은 것도 됩니다. 없었다면 '없었음'도 정직한 기록입니다.</p>
 <label>어떤 종류였나요?</label><div class="chips" id="kcats"></div>
 ${ta("kWhat","무슨 일이었나요?","보고서에 오타가 있었는데 고치고 그냥 넘어갔다")}
 <div class="pair"><div>${ta("kPred","평소 비판자라면 뭐라고 했을까요?","이런 것도 못 챙기면 신뢰 잃는다")}</div><div>${ta("kReal","실제로는 어떻게 됐나요?","아무도 언급하지 않았고, 저녁에 쉴 수 있었다")}</div></div>
 ${ta("kDisc","비판자가 이걸 깎아내린다면? <small>\"운이었어\" 같은 말</small>","이번엔 운 좋게 넘어간 거야")}
 <label>솔직하게, 가혹하지 않은 대가가 있었나요?</label><div class="chips" id="kcost"></div>
 <label for="f-kCostN">있었다면 무엇이었나요? <small>선택</small></label><input type="text" id="f-kCostN" data-k="kCostN">
-<div class="none"><input type="checkbox" id="f-kNone" data-k="kNone"><label for="f-kNone" style="margin:0;font-weight:400">오늘은 그런 순간이 없었음</label></div></aside>`;
-return `<div class="day"><div><p class="short">시간이 없는 날은 1번 받아 적기와 5번 답장 쓰기만 해도 충분합니다.</p>${ex}</div>${kind}</div>`;
-}
+<div class="none"><input type="checkbox" id="f-kNone" data-k="kNone"><label for="f-kNone" style="margin:0;font-weight:400">이번 주는 그런 순간이 없었음</label></div></aside>`}
 function reviewHTML(i){
 const w=wkOf(i),days=data.slice(w*7,w*7+6),last=i===N-1;
-const rec=days.filter(filled).length,kn=days.filter(hasKind).length,cost=days.filter(x=>x.kCost&&x.kCost!=="없었음").length;
+const rec=days.filter(filled).length;
 const qs=days.map((x,k)=>x.critic?`<li>${esc(x.critic)}<em>${w*7+k+1}일차</em></li>`:"").join("")||`<li style="background:none;padding:0;font-family:inherit"><p class="empty">이번 주에 적은 비판자의 말이 여기에 모입니다.</p></li>`;
 const replies=days.map((x,k)=>x.reply?`<li style="font-family:inherit;color:var(--ink);background:var(--tealbg)">${esc(x.reply)}<em>${w*7+k+1}일차 답장</em></li>`:"").join("");
 let cmp="";if(last){const a=avgDrop(data.slice(0,6)),b=avgDrop(data.slice(21,27));cmp=`<div class="stat"><b>${fmtDrop(a)} → ${fmtDrop(b)}</b><span>1주차 대비 4주차 평균 변화</span></div>`}
 const sec=RV.map(([id,t,fs,ex])=>`<div class="rvsec"><h3>${t}</h3>${ex||""}${fs.map(f=>ta(...f)).join("")}</div>`).join("");
 const name=last?`<div class="namebox"><h3>비판자에게 이름 붙이기</h3><p style="margin:0;font-size:15px">4주 동안 이 목소리의 말투와 출처, 반복되는 패턴을 봤습니다. 이제 그 관찰에서 나온 이름을 붙입니다. 조롱하는 이름보다 담담한 이름이 오래 갑니다. 이름이 생기면 "내가 한심하다"가 "검사관이 또 한심하다고 한다"로 바뀝니다.</p>${NAME.map(f=>ta(...f)).join("")}</div>`:"";
-return `<div class="stats"><div class="stat"><b>${rec}일</b><span>이번 주 기록한 날</span></div><div class="stat"><b>${fmtDrop(avgDrop(days))}</b><span>연습 후 평균 변화</span></div><div class="stat"><b>${kn}번</b><span>괜찮았던 순간</span></div><div class="stat"><b>${cost}번</b><span>대가가 있었다고 적은 날</span></div>${cmp}</div>
+return `<div class="stats"><div class="stat"><b>${rec}일</b><span>이번 주 기록한 날</span></div><div class="stat"><b>${fmtDrop(avgDrop(days))}</b><span>연습 후 평균 변화</span></div>${cmp}</div>
 <div class="cols"><div><h3>이번 주 비판자의 말</h3><ul class="quotes">${qs}</ul></div><div><h3>이번 주 내가 쓴 답장</h3><ul class="quotes">${replies||'<li style="background:none;padding:0;font-family:inherit"><p class="empty">5번 답장 쓰기에 적은 문장이 여기에 모입니다.</p></li>'}</ul></div></div>
-${sec}${name}`;
+${sec}${name}${kindHTML()}`;
 }
-let qHidden=false;try{qHidden=sessionStorage.getItem("voiceQHide")==="1"}catch(e){}
-function pin(){const t=(data[cur]&&data[cur].critic||"").trim();document.body.classList.toggle("qhide",qHidden);
-document.querySelectorAll(".qline").forEach(q=>{q.hidden=!t;q.querySelector(".qtext").textContent=t});
-$("fq").textContent=t;floatCheck();}
-function floatCheck(){const f=$("float");const t=(data[cur]&&data[cur].critic||"").trim();const secs=document.querySelectorAll('#dbody [data-after]');
-let show=false;if(t&&!qHidden&&secs.length&&!isRv(cur)){const a=secs[0].getBoundingClientRect().top,b=secs[secs.length-1].getBoundingClientRect().bottom;const fa=document.activeElement,inLater=!!(fa&&fa.closest&&fa.closest("#dbody [data-after]"));const c=$("f-critic"),ct=c?c.getBoundingClientRect():null,critOff=ct?(ct.bottom<0||ct.top>innerHeight):true;show=(a<60&&b>140)||(inLater&&critOff)}
-f.classList.toggle("show",show);}
-function setHide(v){qHidden=v;try{sessionStorage.setItem("voiceQHide",v?"1":"0")}catch(e){}pin()}
+let fMini=false;try{fMini=localStorage.getItem("voiceFloatMini")==="1"}catch(e){}
+function pin(){const t=(data[cur]&&data[cur].critic||"").trim();
+const fq=$("fq");fq.textContent=t||"1번에 비판자의 말을 적으면 여기에 계속 보입니다.";fq.classList.toggle("empty",!t);
+document.querySelectorAll(".qin").forEach(q=>{q.textContent=t||"1번에 적은 말";q.classList.toggle("empty",!t)});
+floatCheck();}
+function floatCheck(){const f=$("float");const show=!isRv(cur);f.classList.toggle("show",show);f.classList.toggle("mini",fMini);
+const b=$("fx");b.innerHTML=fMini?"&#43;":"&times;";b.setAttribute("aria-label",fMini?"크게 펼치기":"작게 접기");b.setAttribute("aria-expanded",String(!fMini));
+document.documentElement.style.setProperty("--fh",show?(f.offsetHeight+8)+"px":"0px");}
+function setMini(v){fMini=v;try{localStorage.setItem("voiceFloatMini",v?"1":"0")}catch(e){}floatCheck()}
 function chips(el,list,key,multi){
 if(!el)return;const v=data[cur][key];
 el.innerHTML=list.map(c=>{const p=multi?(v||[]).includes(c):v===c;return `<button type="button" class="chip" aria-pressed="${p}" data-c="${esc(c)}">${esc(c)}</button>`}).join("");
@@ -336,23 +347,23 @@ chips(el,list,key,multi);change();};
 function day(){
 const x=data[cur],rv=isRv(cur);
 $("dtitle").textContent=rv?(cur===N-1?`${cur+1}일차 · 마지막 리뷰와 이름 붙이기`:`${cur+1}일차 · ${wkOf(cur)+1}주차 리뷰`):`${cur+1}일차 · 오늘의 연습`;
-$("dgoal").textContent=rv?"지난 6일의 기록을 읽고, 반복되는 것과 달라진 것을 적습니다.":"한 장면을 골라 다섯 단계를 순서대로 지나갑니다. 오른쪽에는 가혹하지 않아도 괜찮았던 순간을 적습니다.";
+$("dgoal").textContent=rv?"지난 6일의 기록을 읽고, 반복되는 것과 달라진 것을 적습니다. 맨 아래에는 가혹하지 않아도 괜찮았던 순간을 적습니다.":"한 장면을 골라 다섯 단계를 순서대로 지나갑니다.";
 $("dbody").innerHTML=rv?reviewHTML(cur):dailyHTML();
 document.querySelectorAll("#dbody [data-k]").forEach(el=>{const k=el.dataset.k;
 if(el.type==="checkbox")el.checked=!!x[k];else if(el.type==="range"){el.value=x[k]??5;$("o-"+k).textContent=el.value}else el.value=x[k]||"";});
-if(!rv){chips($("kcats"),KC,"kCats",true);chips($("kcost"),CC,"kCost",false)}
+if(rv){chips($("kcats"),KC,"kCats",true);chips($("kcost"),CC,"kCost",false)}
 pin();if(typeof renderShare==="function"){shSel=new Set();renderShare();saveMsgInit();$("shMsg").textContent=""}
 $("prev").disabled=cur===0;$("next").textContent=cur===N-1?"전체 패턴 보기":"다음 날로";
 }
 function patterns(){
 const dd=data.filter((x,i)=>!isRv(i));
-const done=dd.filter(filled).length,kinds=dd.filter(hasKind).length,nones=dd.filter(x=>x.kNone&&!hasKind(x)).length;
-$("stats").innerHTML=[[done+"일","목소리를 기록한 날 (24일 중)"],[fmtDrop(avgDrop(dd)),"연습 후 '사실처럼 느껴짐' 평균 변화"],[kinds+"번","괜찮았던 순간"],[nones+"일","'없었음'이라고 정직하게 적은 날"]].map(([b,s])=>`<div class="stat"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join("");
+const rvs=data.filter((x,i)=>isRv(i));const done=dd.filter(filled).length,kinds=rvs.filter(hasKind).length,nones=rvs.filter(x=>x.kNone&&!hasKind(x)).length;
+$("stats").innerHTML=[[done+"일","목소리를 기록한 날 (24일 중)"],[fmtDrop(avgDrop(dd)),"연습 후 '사실처럼 느껴짐' 평균 변화"],[kinds+"주","괜찮았던 순간을 적은 주 (4주 중)"],[nones+"주","'없었음'이라고 정직하게 적은 주"]].map(([b,s])=>`<div class="stat"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join("");
 const qs=data.map((x,i)=>!isRv(i)&&x.critic?`<li>${esc(x.critic)}<em>${i+1}일차</em></li>`:"").join("");
 $("quotes").innerHTML=qs||`<li style="background:none;padding:0;font-family:inherit"><p class="empty">아직 기록이 없습니다. 1일차에 들린 문장을 적으면 여기에 모입니다.</p></li>`;
 const bars=(list,count)=>{const n=list.map(count),m=Math.max(1,...n);return n.some(v=>v)?list.map((c,i)=>`<div class="bar"><span>${esc(c)}</span><div><i style="width:${n[i]/m*100}%"></i></div><b>${n[i]}</b></div>`).join(""):`<p class="empty">기록이 쌓이면 여기에 보입니다.</p>`};
-$("kbars").innerHTML=bars(KC,c=>dd.filter(x=>(x.kCats||[]).includes(c)).length);
-$("cbars").innerHTML=bars(CC,c=>dd.filter(x=>x.kCost===c).length);
+$("kbars").innerHTML=bars(KC,c=>rvs.filter(x=>(x.kCats||[]).includes(c)).length);
+$("cbars").innerHTML=bars(CC,c=>rvs.filter(x=>x.kCost===c).length);
 }
 function persistLocal(){try{localStorage.setItem(LS,JSON.stringify({data,cur}))}catch(e){}}
 function own(i){if(!data[i]||Object.isFrozen(data[i]))data[i]=JSON.parse(JSON.stringify(data[i]||{}));return data[i]}
@@ -380,27 +391,27 @@ $("prev").onclick=()=>{if(cur>0)go(cur-1)};
 $("next").onclick=()=>{if(cur<N-1)go(cur+1);else $("pat").scrollIntoView({behavior:"smooth"})};
 $("copy").onclick=async()=>{
 const out=data.map((x,i)=>{const L=[];
-if(isRv(i)){RV.forEach(([,t,fs])=>fs.forEach(([k,l])=>{if(x[k])L.push(l+": "+x[k])}));if(i===N-1)NAME.forEach(([k,l])=>{if(x[k])L.push(l.replace(/<[^>]+>/g,"").trim()+": "+x[k])});
+if(isRv(i)){RV.forEach(([,t,fs])=>fs.forEach(([k,l])=>{if(x[k])L.push(strip_(l)+": "+x[k])}));if(i===N-1)NAME.forEach(([k,l])=>{if(x[k])L.push(strip_(l)+": "+x[k])});
+if(hasKind(x)){L.push("괜찮았던 순간: "+(x.kCats||[]).join(", ")+(x.kWhat?" / "+x.kWhat:""));if(x.kPred)L.push("  비판자 예측: "+x.kPred);if(x.kReal)L.push("  실제: "+x.kReal);if(x.kDisc)L.push("  깎아내리는 말: "+x.kDisc);if(x.kCost)L.push("  대가: "+x.kCost+(x.kCostN?" ("+x.kCostN+")":""));} else if(x.kNone)L.push("괜찮았던 순간: 없었음"); 
 return L.length?`[${i+1}일차 · ${wkOf(i)+1}주차 리뷰]\n`+L.join("\n"):""}
-if(!filled(x)&&!hasKind(x)&&!x.kNone)return"";
-SEC.forEach(s=>s.f.forEach(([k,l])=>{if(x[k])L.push(l.replace(/<[^>]+>/g,"").trim()+": "+x[k])}));
+if(!filled(x))return"";
+SEC.forEach(s=>s.f.forEach(([k,l])=>{if(x[k])L.push(strip_(l)+": "+x[k])}));
 if(filled(x))L.push(`사실처럼 느껴짐: ${x.b0??5} → ${x.b1??5}`);
-if(hasKind(x)){L.push("괜찮았던 순간: "+(x.kCats||[]).join(", ")+(x.kWhat?" / "+x.kWhat:""));if(x.kPred)L.push("  비판자 예측: "+x.kPred);if(x.kReal)L.push("  실제: "+x.kReal);if(x.kDisc)L.push("  깎아내리는 말: "+x.kDisc);if(x.kCost)L.push("  대가: "+x.kCost+(x.kCostN?" ("+x.kCostN+")":""));}
-else if(x.kNone)L.push("괜찮았던 순간: 없었음");
 return `[${i+1}일차]${x.date?" "+x.date:""}\n`+L.join("\n")}).filter(Boolean).join("\n\n");
 try{await navigator.clipboard.writeText(out||"아직 기록이 없습니다.");$("copied").textContent="복사됨"}catch(e){$("copied").textContent="복사가 막혀 있습니다"}};
 
-const strip_=t=>String(t).replace(/<small>.*?<\/small>/g,"").replace(/<[^>]+>/g,"").trim();
+const strip_=t=>String(t).replace(/<span class="qin"><\/span>/g,"'비판자의 말'").replace(/<small>.*?<\/small>/g,"").replace(/<[^>]+>/g,"").trim();
 let shSel=new Set();
 function shItems(i){const x=data[i]||{},out=[];const add=(k,sec,label,val,q)=>{if(val!=null&&String(val).trim()!=="")out.push({k,sec,label,val:String(val),q:!!q})};
-if(isRv(i)){RV.forEach(([,t,fs])=>fs.forEach(([k,l])=>add(k,t,strip_(l),x[k])));if(i===N-1)NAME.forEach(([k,l])=>add(k,"이름 붙이기",strip_(l),x[k]));return out}
-SEC.forEach((s,n)=>s.f.forEach(([k,l])=>add(k,`${n+1}. ${s.t}`,strip_(l),x[k],k==="critic")));
-if(filled(x))add("score","점수","사실처럼 느껴진 정도 (연습 전 → 후)",`${x.b0??5} → ${x.b1??5}`);
-const ks="괜찮았던 순간";
+if(isRv(i)){RV.forEach(([,t,fs])=>fs.forEach(([k,l])=>add(k,t,strip_(l),x[k])));if(i===N-1)NAME.forEach(([k,l])=>add(k,"이름 붙이기",strip_(l),x[k]));
+const ks="이번 주 괜찮았던 순간";
 if(x.kCats&&x.kCats.length)add("kCats",ks,"종류",x.kCats.join(", "));
 add("kWhat",ks,"무슨 일이었나",x.kWhat);add("kPred",ks,"비판자의 예측",x.kPred);add("kReal",ks,"실제",x.kReal);add("kDisc",ks,"깎아내리는 말",x.kDisc);
 if(x.kCost)add("kCost",ks,"가혹하지 않은 대가",x.kCost+(x.kCostN?` (${x.kCostN})`:""));
-if(x.kNone&&!hasKind(x))add("kNone",ks,"오늘","그런 순간이 없었음");
+if(x.kNone&&!hasKind(x))add("kNone",ks,"이번 주","그런 순간이 없었음");
+return out}
+SEC.forEach((s,n)=>s.f.forEach(([k,l])=>add(k,`${n+1}. ${s.t}`,strip_(l),x[k],k==="critic")));
+if(filled(x))add("score","점수","사실처럼 느껴진 정도 (연습 전 → 후)",`${x.b0??5} → ${x.b1??5}`);
 return out}
 function shTitle(){const x=data[cur]||{};return `비판자와 거리두기 · ${cur+1}일차${isRv(cur)?" 리뷰":""}${x.date?" ("+x.date+")":""}`}
 function renderShare(){
@@ -422,9 +433,10 @@ if(db&&uid){$("saveMsg").textContent="저장 중…";await flush();$("saveMsg").
 else $("saveMsg").textContent=`이 휴대폰에 저장됨 · ${tm}`;
 strip();renderShare();$("shareBox").open=true;};
 function saveMsgInit(){const x=data[cur]||{};$("saveMsg").textContent=x.savedAt?`마지막 저장 · ${new Date(x.savedAt).toLocaleDateString("ko-KR")} ${new Date(x.savedAt).toTimeString().slice(0,5)}`:"입력 내용은 자동으로도 저장되지만, 다 쓴 뒤 눌러 확정해 두세요";$("saveBtn").textContent=isRv(cur)?"리뷰 저장":"오늘 기록 저장"}
-$("fx").onclick=()=>setHide(true);
-$("dbody").addEventListener("click",e=>{if(e.target.closest(".qback"))setHide(false)});
-document.addEventListener("scroll",floatCheck,{passive:true,capture:true});$("dbody").addEventListener("focusin",floatCheck);$("dbody").addEventListener("focusout",()=>setTimeout(floatCheck,0));window.addEventListener("resize",floatCheck);
+$("fx").onclick=e=>{e.stopPropagation();setMini(!fMini)};
+$("float").addEventListener("click",()=>{if(fMini)setMini(false)});
+window.addEventListener("resize",floatCheck);
+try{new ResizeObserver(()=>floatCheck()).observe($("float"))}catch(e){}
 strip();day();patterns();
 
 const shSend=$("shSend");if(navigator.share)shSend.hidden=false;

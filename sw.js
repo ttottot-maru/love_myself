@@ -1,14 +1,14 @@
 // 오프라인에서도 열리도록 앱 파일을 저장해 둡니다.
 // 앱을 고쳐 다시 올릴 때는 아래 VERSION 숫자를 하나 올려주세요.
-const VERSION = "v2";
+const VERSION = "v3";
 const CACHE = "geori-" + VERSION;
 const SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/apple-touch-icon.png"
+  "./icon-192.png",
+  "./icon-512.png",
+  "./apple-touch-icon.png"
 ];
 
 self.addEventListener("install", (e) => {
